@@ -2,13 +2,19 @@
     --background: linear-gradient(to bottom right, #f0f0f0, #d9d9d9);
     --text-color: #222;
     --icon-color: #222;
+  
+    --button-bg: rgba(255, 255, 255, 0.6);
+    --button-border: rgba(0, 0, 0, 0.1);
   }
   
-  body.dark {
+  :root.dark {
     --background: linear-gradient(to bottom right, #0d1b2a, #1b263b);
     --text-color: #f5f5f5;
     --icon-color: #f5f5f5;
-  }
+  
+    --button-bg: rgba(0, 0, 0, 0.4);
+    --button-border: rgba(255, 255, 255, 0.1);
+  }    
   
   body {
     background: var(--background);
@@ -28,18 +34,18 @@
   }
   
   header button {
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: var(--button-bg);
+    border: 1px solid var(--button-border);
     border-radius: 50%;
     padding: 0.5rem;
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
+    transition: background 0.3s ease, transform 0.2s ease, border 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+  }  
   
   body.dark header button {
     background: rgba(0, 0, 0, 0.3);
@@ -56,9 +62,9 @@
     pointer-events: none;
   }  
   
-  body.dark img.themed-icon {
+  :root.dark img.themed-icon {
     filter: invert(100%);
-  }
+  }  
   
   .right-buttons {
     display: flex;

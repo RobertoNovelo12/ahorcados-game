@@ -4,6 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Ahorcados game! - By RobertoNovelo12</title>
+  <script>
+    (function() {
+      try {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
   <link rel="stylesheet" href="styles/styles.css" />
 </head>
 <body>
@@ -17,13 +27,12 @@
           </button>
           <button id="themeToggle" title="Cambiar tema">
             <img id="themeIcon" src="public/moon-icon.svg" alt="Tema" class="themed-icon" />
-          </button>
+          </button>          
         </div>
       </header>
   <main>
     <!-- Aquí irá el juego -->
   </main>
-
   <script type="module" src="js/main.js"></script>
 </body>
 </html>

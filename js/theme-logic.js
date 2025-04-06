@@ -1,16 +1,24 @@
 export function toggleTheme() {
-    const body = document.body;
-    const isDark = body.classList.toggle('dark');
+    const root = document.documentElement;
+    const isDark = root.classList.toggle('dark');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  }
+  
+    const themeIcon = document.getElementById('themeIcon');
+    if (themeIcon) {
+      themeIcon.src = isDark ? 'public/sun-icon.svg' : 'public/moon-icon.svg';
+    }
+  }  
   
   export function applyStoredTheme() {
     const storedTheme = localStorage.getItem('theme');
-    const body = document.body;
+    const root = document.documentElement;
+    const themeIcon = document.getElementById('themeIcon');
   
     if (storedTheme === 'dark') {
-      body.classList.add('dark');
+      root.classList.add('dark');
+      if (themeIcon) themeIcon.src = 'public/sun-icon.svg';
     } else {
-      body.classList.remove('dark');
+      root.classList.remove('dark');
+      if (themeIcon) themeIcon.src = 'public/moon-icon.svg';
     }
-  }
+  }    
