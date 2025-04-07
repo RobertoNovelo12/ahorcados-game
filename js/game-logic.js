@@ -1,3 +1,4 @@
+import { updateStickmanDisplay } from './player-logic.js';
 
 export let guessedLetters = [];
 export let wrongLetters = [];
@@ -17,11 +18,12 @@ export function setTargetWord(word, hint) {
     currentWord = Array(targetWord.length).fill('_');
     hintLettersUsed = 0;
     remainingAttempts = 6;
-    gameOver = false;   
+    gameOver = false;
     updateWordDisplay();
     updateHintDisplay();
     updateKeyboardStyles();
     updateAttemptsDisplay();
+    updateStickmanDisplay(0); 
 }
 
 
@@ -42,15 +44,14 @@ function updateAttemptsDisplay() {
 
 
 export function handleKeyPress(letter) {
-    if (gameOver) return;   
-    letter = letter.toUpperCase();   
+    if (gameOver) return;
+    letter = letter.toUpperCase();
     if (guessedLetters.includes(letter) || wrongLetters.includes(letter)) {
         triggerShakeEffect();
         return;
     }
-    
     if (targetWord.includes(letter)) {
-        guessedLetters.push(letter);       
+        guessedLetters.push(letter);
         targetWord.forEach((char, index) => {
             if (char === letter) {
                 currentWord[index] = letter;
@@ -63,6 +64,8 @@ export function handleKeyPress(letter) {
         remainingAttempts--;
         updateKeyboardStyles(letter, false, false);
         updateAttemptsDisplay();
+        updateStickmanDisplay(wrongLetters.length);
+        window.currentWrongCount = wrongLetters.length;
         checkLose();
     }
     updateWordDisplay();
@@ -115,7 +118,6 @@ export function updateWordDisplay() {
         currentWord.forEach((letter, index) => {
             const letterElement = document.createElement('span');
             letterElement.className = 'letter';
-            
             if (letter !== '_') {
                 letterElement.textContent = letter;
                 letterElement.classList.add('correct');

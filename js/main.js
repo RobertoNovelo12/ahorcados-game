@@ -5,6 +5,7 @@ import { setTargetWord, useHint, updateWordDisplay, hideModal } from './game-log
 
 let selectedWord = '';
 let selectedHint = '';
+window.currentWrongCount = 0;
 
 async function fetchRandomWord() {
     try {
@@ -24,6 +25,13 @@ async function fetchRandomWord() {
 }
 
 async function resetGame() {
+    
+    const canvas = document.getElementById('stickman-canvas');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    window.currentWrongCount = 0;
     await fetchRandomWord();
     renderKeyboard();
     updateWordDisplay();
@@ -47,13 +55,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         restartButton.addEventListener('click', async () => {
             await resetGame();
             hideModal();
+            resetStickman(); 
         });
     }
+    
     const restartGameBtn = document.getElementById('restartGameBtn');
     if (restartGameBtn) {
         restartGameBtn.addEventListener('click', async () => {
             await resetGame();
             hideModal();
+            resetStickman(); 
         });
     }
     const closeModalBtn = document.getElementById('closeModalButton');

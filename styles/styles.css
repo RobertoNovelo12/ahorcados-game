@@ -36,7 +36,7 @@ h1{
   justify-content: center;
 }
 
-/* Estructura base */
+
 body {
   background: var(--background);
   color: var(--text-color);
@@ -49,7 +49,7 @@ body {
   overflow-y: hidden;
 }
 
-/* Header */
+
 header {
   display: flex;
   justify-content: space-between;
@@ -59,7 +59,7 @@ header {
   z-index: 10;
 }
 
-/* Botones del header */
+
 header button {
   background: var(--button-bg);
   border: 1px solid var(--button-border);
@@ -96,7 +96,7 @@ header button:focus {
   gap: 1rem;
 }
 
-/* Contenedor principal del juego */
+
 .game-container {
   flex: 1;
   display: flex;
@@ -108,7 +108,7 @@ header button:focus {
   padding: 1rem;
 }
 
-/* Área de visualización de palabras */
+
 #word-display {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
@@ -149,7 +149,7 @@ header button:focus {
   border-color: transparent;
 }
 
-/* Teclado */
+
 #keyboard {
   display: flex;
   flex-direction: column;
@@ -180,7 +180,7 @@ header button:focus {
   align-items: center;
   justify-content: center;
   text-transform: uppercase;
-  width: 45px; /* Fijo */
+  width: 45px; 
   height: 50px;
 }
 
@@ -211,7 +211,7 @@ header button:focus {
   border-color: transparent;
 }
 
-/* Modal */
+
 .modal {
   position: fixed;
   top: 0;
@@ -303,7 +303,7 @@ header button:focus {
   background-color: rgba(255, 255, 255, 0.4);
 }
 
-/* Pista */
+
 #hint-container {
   background: var(--button-bg);
   padding: 1rem;
@@ -320,14 +320,14 @@ header button:focus {
   font-size: 1.1rem;
 }
 
-/* Imagen del ahorcado */
+
 #hangman-image {
   max-width: 200px;
   margin: 0 auto;
   display: block;
 }
 
-/* Contador de intentos */
+
 #attempts-count {
   text-align: center;
   font-size: 1.2rem;
@@ -335,7 +335,7 @@ header button:focus {
   font-weight: bold;
 }
 
-/* Letras incorrectas */
+
 #wrong-letters {
   text-align: center;
   font-size: 1.1rem;
@@ -344,7 +344,7 @@ header button:focus {
   min-height: 1.5rem;
 }
 
-/* Iconos */
+
 header img.themed-icon {
   width: 24px;
   height: 24px;
@@ -355,7 +355,14 @@ header img.themed-icon {
   filter: invert(100%);
 }
 
-/* Responsive */
+
+#stickman-canvas {
+  display: block;
+  margin: 0 auto;
+  background: transparent;
+  max-width: 100%;
+}
+
 @media (max-width: 600px) {
   .letter {
     font-size: 1.5rem;
@@ -388,7 +395,7 @@ header img.themed-icon {
   }
 }
 
-/* Responsividad para el teclado */
+
 @media (max-width: 600px) {
     #keyboard {
       gap: 0.5rem;
@@ -411,4 +418,4 @@ header img.themed-icon {
       height: 45px;
       font-size: 1.1rem;
     }
-  }    
+  }
