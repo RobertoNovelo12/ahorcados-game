@@ -9,17 +9,13 @@ let selectedHint = '';
 async function fetchRandomWord() {
     try {
         const response = await fetch('../public/words.json');
-        if (!response.ok) throw new Error('Error al cargar el diccionario');
-        
+        if (!response.ok) throw new Error('Error al cargar el diccionario');        
         const data = await response.json();
         const words = data.words;
-
-        if (!words || words.length === 0) throw new Error('No hay palabras disponibles');
-        
+        if (!words || words.length === 0) throw new Error('No hay palabras disponibles');     
         const random = words[Math.floor(Math.random() * words.length)];
         selectedWord = random.word;
         selectedHint = random.hint || 'Sin pista disponible';
-
         setTargetWord(selectedWord, selectedHint);
     } catch (error) {
         console.error('Error:', error.message);
@@ -35,25 +31,17 @@ async function resetGame() {
 
 document.addEventListener('DOMContentLoaded', async () => {
     applyStoredTheme();
-    setupButtons();
-
-    
+    setupButtons();    
     await fetchRandomWord();
-    renderKeyboard();
-
-    
+    renderKeyboard();  
     const themeToggle = document.getElementById('themeToggle');
     if (themeToggle) {
         themeToggle.addEventListener('click', toggleTheme);
-    }
-
-    
+    }  
     const hintBtn = document.getElementById('hintBtn');
     if (hintBtn) {
         hintBtn.addEventListener('click', useHint);
-    }
-
-    
+    }   
     const restartButton = document.getElementById('restartButton');
     if (restartButton) {
         restartButton.addEventListener('click', async () => {
@@ -61,7 +49,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             hideModal();
         });
     }
-
     const restartGameBtn = document.getElementById('restartGameBtn');
     if (restartGameBtn) {
         restartGameBtn.addEventListener('click', async () => {
@@ -69,7 +56,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             hideModal();
         });
     }
-
     const closeModalBtn = document.getElementById('closeModalButton');
     if (closeModalBtn) {
         closeModalBtn.addEventListener('click', hideModal);

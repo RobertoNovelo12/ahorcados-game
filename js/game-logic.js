@@ -17,8 +17,7 @@ export function setTargetWord(word, hint) {
     currentWord = Array(targetWord.length).fill('_');
     hintLettersUsed = 0;
     remainingAttempts = 6;
-    gameOver = false;
-    
+    gameOver = false;   
     updateWordDisplay();
     updateHintDisplay();
     updateKeyboardStyles();
@@ -43,20 +42,15 @@ function updateAttemptsDisplay() {
 
 
 export function handleKeyPress(letter) {
-    if (gameOver) return;
-    
-    letter = letter.toUpperCase();
-    
-    
+    if (gameOver) return;   
+    letter = letter.toUpperCase();   
     if (guessedLetters.includes(letter) || wrongLetters.includes(letter)) {
         triggerShakeEffect();
         return;
     }
     
     if (targetWord.includes(letter)) {
-        guessedLetters.push(letter);
-        
-        
+        guessedLetters.push(letter);       
         targetWord.forEach((char, index) => {
             if (char === letter) {
                 currentWord[index] = letter;
@@ -78,11 +72,9 @@ export function handleKeyPress(letter) {
 export function updateKeyboardStyles(letter = null, isCorrect = false, isPresent = false) {
     const buttons = document.querySelectorAll('.key-button');
     buttons.forEach(btn => {
-        const btnLetter = btn.textContent;
-        
+        const btnLetter = btn.textContent;       
         if (btnLetter === letter) {
-            btn.classList.remove('correct', 'present', 'incorrect');
-            
+            btn.classList.remove('correct', 'present', 'incorrect');           
             if (isCorrect) {
                 btn.classList.add('correct');
             } else if (isPresent) {
@@ -98,14 +90,12 @@ export function updateKeyboardStyles(letter = null, isCorrect = false, isPresent
 function checkWin() {
     const wordGuessed = currentWord.every((letter, index) => 
         letter === targetWord[index] || targetWord[index] === ' '
-    );
-    
+    );    
     if (wordGuessed) {
         gameOver = true;
         showModal(true);
     }
 }
-
 
 function checkLose() {
     if (remainingAttempts <= 0) {
@@ -121,8 +111,7 @@ export function updateWordDisplay() {
     const hangmanImage = document.getElementById('hangman-image');
     
     if (wordDisplay) {
-        wordDisplay.innerHTML = '';
-        
+        wordDisplay.innerHTML = '';        
         currentWord.forEach((letter, index) => {
             const letterElement = document.createElement('span');
             letterElement.className = 'letter';
@@ -132,16 +121,13 @@ export function updateWordDisplay() {
                 letterElement.classList.add('correct');
             } else {
                 letterElement.textContent = '_';
-            }
-            
+            }           
             wordDisplay.appendChild(letterElement);
         });
-    }
-    
+    }   
     if (wrongLettersDisplay) {
         wrongLettersDisplay.textContent = `Letras incorrectas: ${wrongLetters.join(', ')}`;
-    }
-    
+    }   
     if (hangmanImage) {
         hangmanImage.src = `images/hangman-${6 - remainingAttempts}.png`;
     }
@@ -152,8 +138,7 @@ export function updateWordDisplay() {
 export function showModal(isWinner) {
     const modal = document.getElementById('restartModal');
     const message = document.getElementById('modalMessage');
-    const word = document.getElementById('modalWord');
-    
+    const word = document.getElementById('modalWord');   
     if (modal && message && word) {
         if (isWinner) {
             message.textContent = '¡Bien hecho! Adivinaste la palabra';
@@ -161,8 +146,7 @@ export function showModal(isWinner) {
         } else {
             message.textContent = '¡Buen intento! La palabra era:';
             word.textContent = targetWord.join('');
-        }
-        
+        }       
         modal.classList.add('active');
     }
 }
@@ -177,37 +161,29 @@ export function hideModal() {
 
 export function useHint() {
     if (gameOver || hintLettersUsed >= 2) return;
-
     const unrevealedIndices = targetWord
         .map((letter, index) => currentWord[index] === '_' ? index : -1)
         .filter(index => index !== -1);
-
     if (unrevealedIndices.length > 0) {
         const randomIndex = unrevealedIndices[
             Math.floor(Math.random() * unrevealedIndices.length)
         ];
         const hintLetter = targetWord[randomIndex];
-
-        
         targetWord.forEach((letter, index) => {
             if (letter === hintLetter && currentWord[index] === '_') {
                 currentWord[index] = hintLetter;
                 triggerHintEffect(index);
             }
-        });
-
-        
+        });        
         if (!guessedLetters.includes(hintLetter)) {
             guessedLetters.push(hintLetter);
         }
-
         hintLettersUsed++;
         updateKeyboardStyles(hintLetter, true, false);
         updateWordDisplay();
         checkWin();
     }
 }
-
 
 function triggerHintEffect(index) {
     const letters = document.querySelectorAll('.letter');
