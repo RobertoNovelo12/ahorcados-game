@@ -46,7 +46,7 @@ body {
   flex-direction: column;
   padding: 1rem;
   margin: 0;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 
@@ -147,6 +147,15 @@ header button:focus {
   background-color: var(--incorrect-color);
   color: white;
   border-color: transparent;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button:active {
+  background-color: #f0f0f0;
 }
 
 
@@ -363,6 +372,51 @@ header img.themed-icon {
   max-width: 100%;
 }
 
+.github-footer {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 100;
+}
+
+.github-footer a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--button-bg);
+  border: 1px solid var(--button-border);
+  border-radius: 50px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  text-decoration: none;
+  color: var(--text-color);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 3px var(--text-color);
+}
+
+.github-footer a:hover {
+  background: var(--highlight-bg);
+  transform: scale(1.05);
+  box-shadow: 0 0 8px var(--highlight-border);
+}
+
+.github-icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s;
+}
+
+.github-footer a:hover .github-icon {
+  transform: rotate(10deg) scale(1.1);
+}
+
+:root.dark .github-icon {
+  filter: invert(100%);
+}
+
 @media (max-width: 600px) {
   .letter {
     font-size: 1.5rem;
@@ -376,6 +430,20 @@ header img.themed-icon {
   
   #hint-container {
     font-size: 1rem;
+  }
+  .github-footer a {
+    padding: 0.5rem;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+  }
+  .github-footer a span {
+      display: none;
+  }
+  .github-icon {
+      width: 24px;
+      height: 24px;
+      margin: 0;
   }
 }
 

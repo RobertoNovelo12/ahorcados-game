@@ -27,14 +27,25 @@ export function redrawStickman(wrongCount) {
     ctx.lineCap = 'round';
     const centerX = canvas.width / 2;
     const baseY = canvas.height * 0.9;
+
     drawStaticStructure(ctx, centerX, baseY);
-    if (wrongCount >= 1) drawHead(ctx, centerX + 80, baseY - 145);
-    if (wrongCount >= 2) drawBody(ctx, centerX + 80, baseY - 120, baseY - 60);
-    if (wrongCount >= 3) drawLeftArm(ctx, centerX + 80, baseY - 110, centerX + 55, baseY - 85);
-    if (wrongCount >= 4) drawRightArm(ctx, centerX + 80, baseY - 110, centerX + 105, baseY - 85);
-    if (wrongCount >= 5) drawLeftLeg(ctx, centerX + 80, baseY - 60, centerX + 60, baseY - 20);
-    if (wrongCount >= 6) drawRightLeg(ctx, centerX + 80, baseY - 60, centerX + 100, baseY - 20);
+
+    const headY = baseY - 151;
+    const bodyY1 = baseY - 135;
+    const leftArmY1 = bodyY1 - 1;
+    const rightArmY1 = bodyY1 - 1;
+    const leftLegY1 = baseY - 60;
+    const rightLegY1 = baseY - 60;
+
+    if (wrongCount >= 1) drawHead(ctx, centerX + 80, headY);
+    if (wrongCount >= 2) drawBody(ctx, centerX + 80, bodyY1, baseY - 60);
+    if (wrongCount >= 3) drawLeftArm(ctx, centerX + 80, leftArmY1, centerX + 55, baseY - 85);
+    if (wrongCount >= 4) drawRightArm(ctx, centerX + 80, rightArmY1, centerX + 105, baseY - 85);
+    if (wrongCount >= 5) drawLeftLeg(ctx, centerX + 80, leftLegY1, centerX + 60, baseY - 20);
+    if (wrongCount >= 6) drawRightLeg(ctx, centerX + 80, rightLegY1, centerX + 100, baseY - 20);
 }
+
+
 
 
 function drawStaticStructure(ctx, x, y) {

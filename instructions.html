@@ -46,13 +46,13 @@
     }
 
     body {
-      overflow-y: hidden;
       background: var(--background);
       color: var(--text-color);
       font-family: 'Segoe UI', sans-serif;
       min-height: 100vh;
       margin: 0;
       padding: 1rem;
+      overflow-x: hidden;
     }
 
     header {
@@ -212,6 +212,124 @@
       padding: 1rem;
       color: var(--text-color);
     }
+
+    .github-footer {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 100;
+    }
+
+    .github-footer a {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: var(--button-bg);
+        border: 1px solid var(--button-border);
+        border-radius: 50px;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        text-decoration: none;
+        color: var(--text-color);
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 3px var(--text-color);
+    }
+
+    .github-footer a:hover {
+        background: var(--highlight-bg);
+        transform: scale(1.05);
+        box-shadow: 0 0 8px var(--highlight-border);
+    }
+
+    .github-icon {
+        width: 20px;
+        height: 20px;
+        transition: transform 0.3s;
+    }
+
+    .github-footer a:hover .github-icon {
+        transform: rotate(10deg) scale(1.1);
+    }
+
+    :root.dark .github-icon {
+        filter: invert(100%);
+    }
+
+        @media (max-width: 600px) {
+        .github-footer a {
+            padding: 0.5rem;
+            width: 40px;
+            height: 40px;
+            justify-content: center;
+        }
+        .github-footer a span {
+            display: none;
+        }
+        .github-icon {
+            width: 24px;
+            height: 24px;
+            margin: 0;
+        }
+        body {
+        padding: 0.5rem; 
+        overflow-x: hidden; 
+    }
+
+    .container {
+        padding: 1rem; 
+        max-width: 100%; 
+    }
+
+    h1 {
+        font-size: 1.5rem; 
+        margin-bottom: 1rem; 
+    }
+
+    h2 {
+        font-size: 1.2rem; 
+        margin-top: 1.5rem; 
+    }
+
+    .instructions-section {
+        padding: 1rem; 
+        margin-bottom: 1.5rem; 
+    }
+
+    .step {
+        flex-direction: column; 
+        margin-bottom: 1rem; 
+    }
+
+    .step-number {
+        margin-right: 0;
+        margin-bottom: 0.5rem; 
+    }
+
+    .step-content {
+        width: 100%; 
+    }
+
+    .game-example {
+        flex-wrap: wrap; 
+        margin: 1rem 0; 
+    }
+
+    .example-letter {
+        width: 30px; 
+        height: 30px;
+        font-size: 1.2rem;
+        margin: 2px; 
+    }
+
+    .back-button {
+        width: 90%; 
+        margin: 1.5rem auto; 
+        padding: 0.6rem; 
+    }
+    }
   </style>
 </head>
 <body>
@@ -318,7 +436,12 @@
     
     <a href="index.html" class="back-button">Volver al Juego</a>
   </div>
-  
+    <div class="github-footer">
+        <a href="https://github.com/RobertoNovelo12" target="_blank" rel="noopener noreferrer">
+            <img src="public/github-icon.svg" alt="GitHub" class="github-icon">
+            <span>RobertoNovelo12</span>
+        </a>
+    </div> 
   <footer>
     <p>Ahorcados game! - By RobertoNovelo12</p>
   </footer>
