@@ -27,6 +27,9 @@
           </button>
           <button id="themeToggle" title="Cambiar tema">
             <img id="themeIcon" src="public/moon-icon.svg" alt="Tema" class="themed-icon" />
+          </button>
+          <button id="restartGameBtn" title="Reiniciar juego">
+            <img src="public/reload-icon.svg" alt="Reiniciar" class="themed-icon" />
           </button>          
         </div>
       </header>
@@ -34,6 +37,15 @@
         <section id="word-display" aria-label="Zona de letras ocultas"></section>
         <section id="keyboard" aria-label="Teclado virtual"></section>
       </main>
+      <!-- Modal -->
+        <div id="restartModal" class="modal">
+            <div class="modal-content">
+                <h2 id="modalMessage"></h2>
+                <p id="modalWord"></p>
+                <button id="restartButton">Reiniciar Juego</button>
+                <button id="closeModalButton">Cerrar</button>
+            </div>
+        </div>
   <script type="module" src="js/main.js"></script>
 </body>
 </html>
