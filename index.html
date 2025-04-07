@@ -18,6 +18,7 @@
 </head>
 <body>
     <header>
+      <h1>AHORCADOS</h1>     
         <button id="helpBtn" title="Ayuda">
           <img src="public/help-icon.svg" alt="Ayuda" class="themed-icon" />
         </button>
@@ -34,15 +35,22 @@
         </div>
       </header>
       <main>
-        <h1>AHORCADOS</h1>  
-        <canvas id="stickman-canvas" width="300" height="250"></canvas>          
-        <section id="word-display" aria-label="Zona de letras ocultas"></section>
-        <section id="keyboard" aria-label="Teclado virtual"></section>
+        
+        <div class="game-layout">
 
-        <section id="hint-container" aria-label="Pista del acertijo">
-          <p id="hint-text"></p>
-        </section>
-      </main>      
+                          
+          <div class="game-container">
+            <canvas id="stickman-canvas" width="300" height="250"></canvas>
+            <section id="word-display" aria-label="Zona de letras ocultas"></section>
+            <section id="keyboard" aria-label="Teclado virtual"></section>
+          </div>
+          <section id="hint-container" aria-label="Pista del acertijo">
+            <p id="hint-text"></p>
+          </section>
+
+
+        </div>
+      </main>         
       <!-- Modal -->
         <div id="restartModal" class="modal">
             <div class="modal-content">
