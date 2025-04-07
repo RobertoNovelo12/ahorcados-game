@@ -72,3 +72,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         closeModalBtn.addEventListener('click', hideModal);
     }
 });
+
+const helpBtn = document.getElementById('helpBtn');
+if (helpBtn) {
+    helpBtn.addEventListener('click', () => {
+        window.location.href = 'instructions.html';
+    });
+}

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="shortcut icon" href="/public/stickman.svg" type="image/x-svg" class="favicon">
+  <title>Instrucciones - Ahorcados game!</title>
+  <script>
+    (function() {
+      try {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <style>
+    :root {
+      --background: linear-gradient(to bottom right, #f0f0f0, #d9d9d9);
+      --text-color: #222;
+      --icon-color: #222;
+      --button-bg: rgba(255, 255, 255, 0.6);
+      --button-border: rgba(0, 0, 0, 0.1);
+      --highlight-bg: #fce588;
+      --highlight-border: #f0c420;
+      --highlight-arrow: #b38b00;
+      --correct-color: #4CAF50;
+      --incorrect-color: #9E9E9E;
+      --present-color: #FFC107;
+      --modal-bg-dark: #1b263b98;
+    }
+
+    :root.dark {
+      --background: linear-gradient(to bottom right, #0d1b2a, #1b263b);
+      --text-color: #f5f5f5;
+      --icon-color: #f5f5f5;
+      --button-bg: rgba(0, 0, 0, 0.4);
+      --button-border: rgba(255, 255, 255, 0.1);
+      --highlight-bg: #f0c420;
+      --highlight-border: #f7b733;
+      --highlight-arrow: #fff4c2;
+      --correct-color: #2E7D32;
+      --incorrect-color: #616161;
+      --present-color: #FF8F00;
+    }
+
+    body {
+      overflow-y: hidden;
+      background: var(--background);
+      color: var(--text-color);
+      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      padding: 1rem;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    header button {
+      background: var(--button-bg);
+      border: 1px solid var(--button-border);
+      border-radius: 50%;
+      padding: 0.5rem;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 3px var(--text-color);
+      -webkit-backdrop-filter: blur(6px);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      transition: transform 0.3s;
+    }
+
+    .right-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    header button:hover {
+      transform: scale(1.05);
+    }
+
+    .themed-icon {
+      width: 24px;
+      height: 24px;
+      pointer-events: none;
+    }
+
+    :root.dark .themed-icon {
+      filter: invert(100%);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--text-color);
+    }
+
+    h2 {
+      color: var(--text-color);
+      margin-top: 2rem;
+      border-bottom: 2px solid var(--highlight-border);
+      padding-bottom: 0.5rem;
+    }
+
+    .instructions-section {
+      background: var(--button-bg);
+      border: 1px solid var(--button-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(6px);
+    }
+
+    .step {
+      display: flex;
+      margin-bottom: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .step-number {
+      background-color: var(--highlight-bg);
+      color: var(--text-color);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 1rem;
+      flex-shrink: 0;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .game-example {
+      display: flex;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+
+    .example-letter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      margin: 0 5px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      border-radius: 4px;
+      border: 2px solid var(--button-border);
+    }
+
+    .correct-example {
+      background-color: var(--correct-color);
+      color: white;
+    }
+
+    .present-example {
+      background-color: var(--present-color);
+      color: white;
+    }
+
+    .incorrect-example {
+      background-color: var(--incorrect-color);
+      color: white;
+    }
+
+    .back-button {
+      display: block;
+      width: 200px;
+      margin: 2rem auto;
+      padding: 0.75rem;
+      background: var(--button-bg);
+      border: 1px solid var(--button-border);
+      border-radius: 8px;
+      color: var(--text-color);
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .back-button:hover {
+      background: var(--highlight-bg);
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding: 1rem;
+      color: var(--text-color);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button id="backButton" title="Volver al juego">
+      <img src="public/back-icon.svg" alt="Volver" class="themed-icon" />
+    </button>
+    <div class="right-buttons">
+      <button id="themeToggle" title="Cambiar tema">
+        <img id="themeIcon" src="public/moon-icon.svg" alt="Tema" class="themed-icon" />
+      </button>
+    </div>
+  </header>
+
+  <div class="container">
+    <h1>INSTRUCCIONES DEL JUEGO AHORCADO</h1>
+    
+    <div class="instructions-section">
+      <h2>¿Cómo jugar?</h2>
+      
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <p><strong>Objetivo del juego:</strong> Adivinar la palabra oculta antes de que se complete el dibujo del ahorcado.</p>
+        </div>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <p><strong>Inicio del juego:</strong> Al comenzar, verás una serie de guiones que representan cada letra de la palabra oculta.</p>
+          <div class="game-example">
+            <div class="example-letter">_</div>
+            <div class="example-letter">_</div>
+            <div class="example-letter">_</div>
+            <div class="example-letter">_</div>
+            <div class="example-letter">_</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <p><strong>Adivinar letras:</strong> Usa el teclado en pantalla para seleccionar letras. Cada letra correcta se revelará en su posición.</p>
+          <div class="game-example">
+            <div class="example-letter">P</div>
+            <div class="example-letter">_</div>
+            <div class="example-letter">_</div>
+            <div class="example-letter">A</div>
+            <div class="example-letter">_</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <p><strong>Letras incorrectas:</strong> Cada letra que no está en la palabra hará que se dibuje una parte del ahorcado.</p>
+          <p>Tienes un máximo de 6 intentos incorrectos antes de perder el juego.</p>
+        </div>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <p><strong>Pistas:</strong> Puedes usar el botón de pista para obtener una ayuda sobre la palabra oculta.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="instructions-section">
+      <h2>Sistema de Colores</h2>
+      
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <p><strong>Letra correcta:</strong> Aparece en verde cuando la letra o letras se encuentran en la palabra.</p>
+          <div class="game-example">
+            <div class="example-letter correct-example">A</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <p><strong>Letra incorrecta:</strong> Aparece en gris cuando no está en la palabra.</p>
+          <div class="game-example">
+            <div class="example-letter incorrect-example">X</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="instructions-section">
+      <h2>Controles</h2>
+      <ul style="padding-left: 1.5rem;">
+        <li><strong>Botón de tema:</strong> Cambia entre modo claro y oscuro</li>
+        <li><strong>Botón de pista:</strong> Muestra una ayuda sobre la palabra</li>
+        <li><strong>Botón de reinicio:</strong> Comienza un nuevo juego</li>
+      </ul>
+    </div>
+    
+    <a href="index.html" class="back-button">Volver al Juego</a>
+  </div>
+  
+  <footer>
+    <p>Ahorcados game! - By RobertoNovelo12</p>
+  </footer>
+
+  <script>
+    document.getElementById('themeToggle').addEventListener('click', function() {
+      const root = document.documentElement;
+      const isDark = root.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      
+      const themeIcon = document.getElementById('themeIcon');
+      if (themeIcon) {
+        themeIcon.src = isDark ? 'public/sun-icon.svg' : 'public/moon-icon.svg';
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const isDark = document.documentElement.classList.contains('dark');
+      const themeIcon = document.getElementById('themeIcon');
+      if (themeIcon) {
+        themeIcon.src = isDark ? 'public/sun-icon.svg' : 'public/moon-icon.svg';
+      }
+      document.getElementById('backButton').addEventListener('click', function() {
+        window.location.href = 'index.html';
+      });
+    });
+</script>
+</body>
+</html>
