@@ -1,95 +1,212 @@
-export let currentWord = '';  
-export let canType = true;  
-export let canDelete = true;  
-export let wordLines = [];  
-export let targetWord = '';  
+export let guessedLetters = [];
+export let wrongLetters = [];
+export let targetWord = '';
+export let remainingAttempts = 6;
+export let gameOver = false;
+export let hintLettersUsed = 0;
+export let hintLetters = [];
+export let currentHint = '';
 
-export function setTargetWord(word) {
-    targetWord = word.toUpperCase();  
-    wordLines = [];  
-    currentWord = '';  
-    canType = true;  
-    canDelete = true;  
+// Configura la palabra objetivo
+export function setTargetWord(word, hint) {
+    targetWord = word.toUpperCase();
+    currentHint = hint;
+    guessedLetters = [];
+    wrongLetters = [];
+    hintLetters = [];
+    hintLettersUsed = 0;
+    remainingAttempts = 6;
+    gameOver = false;
+    
+    updateWordDisplay();
+    updateHintDisplay();
 }
 
+// Actualiza el display de la pista
+function updateHintDisplay() {
+    const hintElement = document.getElementById('hint-text');
+    if (hintElement) {
+        hintElement.textContent = `💡 Pista: ${currentHint}`;
+    }
+}
+
+// Función para usar pista
+export function useHint() {
+    if (gameOver || hintLettersUsed >= 2) return;
+    
+    const unrevealedLetters = targetWord.split('').filter((letter, index) => 
+        !guessedLetters.includes(letter) && 
+        !hintLetters.includes(index) && 
+        letter !== ' '
+    );
+    
+    if (unrevealedLetters.length > 0) {
+        const randomLetter = unrevealedLetters[
+            Math.floor(Math.random() * unrevealedLetters.length)
+        ];
+        
+        targetWord.split('').forEach((letter, index) => {
+            if (letter === randomLetter) {
+                hintLetters.push(index);
+            }
+        });
+        
+        hintLettersUsed++;
+        triggerHintEffect();
+        checkWin();
+        updateWordDisplay();
+    }
+}
+
+// Efecto visual para pistas
+function triggerHintEffect() {
+    const wordDisplay = document.getElementById('word-display');
+    if (wordDisplay) {
+        wordDisplay.classList.add('hint-reveal');
+        setTimeout(() => {
+            wordDisplay.classList.remove('hint-reveal');
+        }, 1000);
+    }
+}
+
+// Maneja la pulsación de una letra
+export function handleKeyPress(letter) {
+    if (gameOver) return;
+    
+    letter = letter.toUpperCase();
+    
+    if (guessedLetters.includes(letter) || wrongLetters.includes(letter)) {
+        triggerShakeEffect();
+        return;
+    }
+    
+    if (targetWord.includes(letter)) {
+        guessedLetters.push(letter);
+        checkWin();
+    } else {
+        wrongLetters.push(letter);
+        remainingAttempts--;
+        triggerIncorrectEffect();
+        checkLose();
+    }
+    
+    updateWordDisplay();
+    updateKeyboardStyles();
+}
+
+// Efecto shake para errores
+function triggerShakeEffect() {
+    const wordDisplay = document.getElementById('word-display');
+    if (wordDisplay) {
+        wordDisplay.classList.add('shake');
+        setTimeout(() => {
+            wordDisplay.classList.remove('shake');
+        }, 600);
+    }
+}
+
+// Efecto para letras incorrectas
+function triggerIncorrectEffect() {
+    const hangmanImage = document.getElementById('hangman-image');
+    if (hangmanImage) {
+        hangmanImage.classList.add('error-flash');
+        setTimeout(() => {
+            hangmanImage.classList.remove('error-flash');
+        }, 500);
+    }
+}
+
+// Verifica si el jugador ganó
+function checkWin() {
+    const wordGuessed = targetWord.split('').every((letter, index) => 
+        guessedLetters.includes(letter) || 
+        hintLetters.includes(index) || 
+        letter === ' '
+    );
+    
+    if (wordGuessed) {
+        gameOver = true;
+        showModal(true);
+    }
+}
+
+// Verifica si el jugador perdió
+function checkLose() {
+    if (remainingAttempts <= 0) {
+        gameOver = true;
+        showModal(false);
+    }
+}
+
+// Actualiza la visualización de la palabra
 export function updateWordDisplay() {
     const wordDisplay = document.getElementById('word-display');
-    wordDisplay.innerHTML = '';
-    wordLines.forEach(word => {
-        const lineDiv = document.createElement('div');
-        lineDiv.classList.add('word-line');
-        word.split('').forEach(letter => {
-            const letterDiv = document.createElement('div');
-            letterDiv.classList.add('letter-line');
-            letterDiv.textContent = letter;
-            lineDiv.appendChild(letterDiv);
-        });
-        wordDisplay.appendChild(lineDiv);
-    });
-
-    const currentLineDiv = document.createElement('div');
-    currentLineDiv.classList.add('word-line');
-
-    for (let i = 0; i < targetWord.length; i++) {
-        const letterDiv = document.createElement('div');
-        letterDiv.classList.add('letter-line');
-        letterDiv.textContent = i < currentWord.length ? currentWord[i] : '_';
-        currentLineDiv.appendChild(letterDiv);
+    const wrongLettersDisplay = document.getElementById('wrong-letters');
+    const hangmanImage = document.getElementById('hangman-image');
+    const attemptsDisplay = document.getElementById('attempts-count');
+    
+    if (wordDisplay) {
+        wordDisplay.innerHTML = targetWord.split('').map((letter, index) => {
+            let classes = 'letter';
+            if (guessedLetters.includes(letter) || hintLetters.includes(index)) {
+                classes += ' correct-letter';
+            } else if (wrongLetters.includes(letter)) {
+                classes += ' incorrect-letter';
+            } else if (letter === ' ') {
+                classes += ' space';
+            }
+            
+            const content = guessedLetters.includes(letter) || hintLetters.includes(index) ? 
+                letter : 
+                (letter === ' ' ? ' ' : '_');
+            
+            return `<span class="${classes}">${content}</span>`;
+        }).join('');
     }
-    wordDisplay.appendChild(currentLineDiv);
+    
+    if (wrongLettersDisplay) {
+        wrongLettersDisplay.textContent = `Letras incorrectas: ${wrongLetters.join(', ')}`;
+    }
+    
+    if (hangmanImage) {
+        hangmanImage.src = `images/hangman-${6 - remainingAttempts}.png`;
+    }
+    
+    if (attemptsDisplay) {
+        attemptsDisplay.textContent = remainingAttempts;
+    }
 }
 
-export function handleKeyPress(letter) {
-    if (canType && currentWord.length < targetWord.length) {
+// Actualiza estilos del teclado
+function updateKeyboardStyles() {
+    const buttons = document.querySelectorAll('.key-button');
+    buttons.forEach(btn => {
+        const letter = btn.textContent;
+        btn.classList.remove('correct-key', 'wrong-key');
         
-        currentWord += letter;
-        updateWordDisplay(); 
-        canType = false;  
-        canDelete = true; 
-    }
-}
-
-export function handleBackspace() {
-    if (canDelete && currentWord.length > 0) {
-        
-        currentWord = currentWord.slice(0, -1);
-        updateWordDisplay();
-        canType = true;  
-        canDelete = false; 
-    }
-}
-
-export function handleEnter() {
-    const modalMessage = document.getElementById('modalMessage');
-    const modalWord = document.getElementById('modalWord');
-    const restartModal = document.getElementById('restartModal');
-    const restartButton = document.getElementById('restartButton');
-    const closeModalButton = document.getElementById('closeModalButton');
-    if (currentWord.length === targetWord.length) {
-        if (currentWord === targetWord) {
-            wordLines.push(currentWord);  
-            currentWord = '';  
-            canType = true;  
-            canDelete = true;  
-            updateWordDisplay();  
-            modalMessage.textContent = "¡Felicidades, adivinaste la palabra!";
-            modalWord.textContent = ""; 
-        } else {
-            modalMessage.textContent = "¡Buen intento!";
-            modalWord.textContent = `La palabra era: ${targetWord}`;
+        if (guessedLetters.includes(letter)) {
+            btn.classList.add('correct-key');
+        } else if (wrongLetters.includes(letter)) {
+            btn.classList.add('wrong-key');
         }
-        restartModal.style.display = 'flex';
-        restartButton.onclick = () => {
-            restartModal.style.display = 'none';  
-            fetchRandomWord();  
-            updateWordDisplay();  
-        };
-        closeModalButton.onclick = () => {
-            restartModal.style.display = 'none';  
-        };
-    }
-    else {
-        canType = true;
-        updateWordDisplay(); 
+    });
+}
+
+// Muestra el modal de resultado
+export function showModal(isWinner) {
+    const modal = document.getElementById('restartModal');
+    const message = document.getElementById('modalMessage');
+    const word = document.getElementById('modalWord');
+    
+    if (modal && message && word) {
+        if (isWinner) {
+            message.textContent = '¡Bien hecho! Adivinaste la palabra';
+            word.textContent = '';
+        } else {
+            message.textContent = '¡Buen intento! La palabra era:';
+            word.textContent = targetWord;
+        }
+        
+        modal.style.display = 'block';
     }
 }

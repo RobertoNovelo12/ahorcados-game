@@ -1,216 +1,360 @@
 :root {
-    --background: linear-gradient(to bottom right, #f0f0f0, #d9d9d9);
-    --text-color: #222;
-    --icon-color: #222;
-  
-    --button-bg: rgba(255, 255, 255, 0.6);
-    --button-border: rgba(0, 0, 0, 0.1);
-  }
-  
-  :root.dark {
-    --background: linear-gradient(to bottom right, #0d1b2a, #1b263b);
-    --text-color: #f5f5f5;
-    --icon-color: #f5f5f5;
-  
-    --button-bg: rgba(0, 0, 0, 0.4);
-    --button-border: rgba(255, 255, 255, 0.1);
-  } 
-    
-  body {
-    background: var(--background);
-    color: var(--text-color);
-    font-family: 'Segoe UI', sans-serif;
-    transition: background 0.5s ease, color 0.5s ease;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-  }
-  
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-  }
-  
-  header button {
-    background: var(--button-bg);
-    border: 1px solid var(--button-border);
-    border-radius: 50%;
-    padding: 0.5rem;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease, border 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }  
-  
-  body.dark header button {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  header button:hover,
-  header button:focus {
-    transform: scale(1.05);
-    outline: none;
-  }
-  header img.themed-icon {
-    width: 24px;
-    height: 24px;
-    pointer-events: none;
-  }  
-  
-  :root.dark img.themed-icon {
-    filter: invert(100%);
-  }  
-  
-  .right-buttons {
-    display: flex;
-    gap: 1rem;
-  }
+  --background: linear-gradient(to bottom right, #f0f0f0, #d9d9d9);
+  --text-color: #222;
+  --icon-color: #222;
+  --button-bg: rgba(255, 255, 255, 0.6);
+  --button-border: rgba(0, 0, 0, 0.1);
+  --highlight-bg: #fce588;
+  --highlight-border: #f0c420;
+  --highlight-arrow: #b38b00;
+  --correct-color: #4CAF50;
+  --incorrect-color: #9E9E9E;
+  --present-color: #FFC107;
+  --modal-bg-dark: #1b263b;
+}
 
- /* Estilos para el contenedor de las letras (líneas de adivinanza) */
- #word-display {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin: 2rem auto;
-    flex-wrap: wrap;
-  }
-  
-  .letter-line {
-    width: 2rem;
-    height: 2.5rem;
-    text-align: center;
-    font-size: 2rem;
-    color: var(--text-color);
-    display: inline-block;
-  }  
-  
-  /* Estilos del teclado */
-  #keyboard {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .key-row {
-    display: flex;
-    gap: 0.5rem;
-    justify-content: center;
-  }
+:root.dark {
+  --background: linear-gradient(to bottom right, #0d1b2a, #1b263b);
+  --text-color: #f5f5f5;
+  --icon-color: #f5f5f5;
+  --button-bg: rgba(0, 0, 0, 0.4);
+  --button-border: rgba(255, 255, 255, 0.1);
+  --highlight-bg: #f0c420;
+  --highlight-border: #f7b733;
+  --highlight-arrow: #fff4c2;
+  --correct-color: #2E7D32;
+  --incorrect-color: #616161;
+  --present-color: #FF8F00;
+}
 
-  .key-row button {
-    width: auto;
-  }
-  
-  .key-button {
-    background: var(--button-bg);
-    border: 1px solid var(--button-border);
-    border-radius: 8px;
-    padding: 1rem 1.5rem;
-    font-size: 1.2rem;
-    color: var(--text-color);
-    cursor: pointer;
-    backdrop-filter: blur(6px);
-    transition: background 0.2s ease;
-    width: 50px;
-    height: 50px;
-  }
-  
-  .key-button:hover {
-    background: rgba(255, 255, 255, 0.4);
-  }
-  
-  :root.dark .key-button:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
+/* Estructura base */
+body {
+  background: var(--background);
+  color: var(--text-color);
+  font-family: 'Segoe UI', sans-serif;
+  transition: background 0.5s ease, color 0.5s ease;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
 
-  #keyboard .key-row:first-child {
-    justify-content: flex-end;
-  }
-  
-  #keyboard .key-row:last-child {
-    justify-content: center;
-  }
-  
-  .key-button:focus {
-    outline: none;
-  }
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
 
-  /* Estilos de la Modal */
+/* Estilos de botones (manteniendo tu diseño original) */
+header button {
+  background: var(--button-bg);
+  border: 1px solid var(--button-border);
+  border-radius: 50%;
+  padding: 0.5rem;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease, border 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.dark header button {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+header button:hover,
+header button:focus {
+  transform: scale(1.05);
+  outline: none;
+}
+
+.right-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Teclado (estilos originales preservados) */
+#keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.key-row {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.key-row button {
+  width: auto;
+}
+
+.key-button {
+  /* Estilos base que ya tenías */
+  background: var(--button-bg);
+  border: 1px solid var(--button-border);
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  font-size: 1.2rem;
+  color: var(--text-color);
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+  width: 50px;
+  height: 50px;
+  font-weight: bold;
+}
+
+.key-button.correct {
+  background-color: var(--correct-color);
+  color: white;
+  border-color: transparent;
+}
+
+.key-button.present {
+  background-color: var(--present-color);
+  color: white;
+  border-color: transparent;
+}
+
+.key-button.incorrect {
+  background-color: var(--incorrect-color);
+  color: white;
+  border-color: transparent;
+  opacity: 0.7;
+}
+
+.key-button.correct:hover {
+  background-color: var(--correct-color);
+  opacity: 0.9;
+}
+
+.key-button.present:hover {
+  background-color: var(--present-color);
+  opacity: 0.9;
+}
+
+.key-button.incorrect:hover {
+  background-color: var(--incorrect-color);
+  opacity: 0.6;
+}
+
+.key-button:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+:root.dark .key-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#keyboard .key-row:first-child {
+  justify-content: flex-end;
+}
+
+#keyboard .key-row:last-child {
+  justify-content: center;
+}
+
+.key-button:focus {
+  outline: none;
+}
+
+/* Modal (estilos originales preservados) */
 .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  overflow: auto;
+  backdrop-filter: blur(4px);
 }
 
 .modal-content {
-    background-color: var(--background);
-    color: var(--text-color);
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    width: 300px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(6px);
+  position: relative;
+  background-color: var(--background);
+  margin: 15% auto;
+  padding: 25px;
+  width: 80%;
+  max-width: 350px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  animation: modalopen 0.4s;
 }
 
 .modal button {
-    margin: 10px;
-    padding: 10px 20px;
-    background-color: var(--button-bg);
-    border: 1px solid var(--button-border);
-    color: var(--text-color);
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background 0.2s ease;
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: var(--button-bg);
+  border: 1px solid var(--button-border);
+  color: var(--text-color);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s ease;
 }
 
 .modal button:hover {
-    background-color: var(--button-bg-hover, #45a049);
+  background-color: var(--button-bg-hover, #45a049);
 }
 
 .modal button:focus {
-    outline: none;
+  outline: none;
 }
 
+@keyframes modalopen {
+  from {opacity: 0; transform: translateY(-50px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+
 #restartButton {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
 }
 
 #restartButton:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
 :root.dark .modal-content {
-    background-color: #1b263b;
-    color: #f5f5f5;
+  background-color: #1b263b;
+  color: #f5f5f5;
 }
 
 :root.dark .modal button {
-    background-color: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    color: #f5f5f5;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: #f5f5f5;
 }
 
 :root.dark .modal button:hover {
-    background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Estilos para las letras */
+#word-display {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 2rem auto;
+  flex-wrap: wrap;
+}
+
+.letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 50px;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 4px;
+  background: var(--button-bg);
+  border: 1px solid var(--button-border);
+  margin: 0.25rem;
+  transition: all 0.3s ease;
+}
+
+
+.letter.correct {
+  background-color: var(--correct-color);
+  color: white;
+  animation-name: flip;
+}
+
+.letter.present {
+  background-color: var(--present-color);
+  color: white;
+  animation-name: flip;
+}
+
+.letter.incorrect {
+  background-color: var(--incorrect-color);
+  color: white;
+  animation-name: flip;
+}
+
+.letter.space {
+  background: transparent;
+  border: none;
+}
+
+:root.dark .letter.correct {
+  background: var(--correct-dark);
+  border-color: #34a853;
+  color: #f5f5f5;
+}
+
+:root.dark .letter.incorrect {
+  background: var(--incorrect-dark);
+  border-color: #d9534f;
+  color: #f5f5f5;
+}
+
+/* Efectos y animaciones */
+.word-line.shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
+
+.error-flash {
+  animation: errorColor 0.6s ease-in-out;
+}
+
+@keyframes errorColor {
+  0% { background-color: #ffb3b3; }
+  100% { background-color: transparent; }
+}
+
+/* Pista */
+#hint-container {
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 1rem 1.5rem;
+  margin: 1rem auto 0;
+  max-width: 600px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  color: var(--text-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background-color 0.3s ease;
+}
+
+:root.dark #hint-container {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+}
+
+/* Iconos */
+header img.themed-icon {
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+}
+
+:root.dark img.themed-icon {
+  filter: invert(100%);
 }
 
 /* Responsividad para el teclado */

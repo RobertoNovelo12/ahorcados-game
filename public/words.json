@@ -1,12 +1,64 @@
 {
-    "words": [
-      "javascript",
-      "programador",
-      "algoritmo",
-      "ahorcado",
-      "variable",
-      "constante",
-      "objeto",
-      "funcion"
-    ]
-  }  
+  "words": [
+    {
+      "word": "Perro",
+      "hint": "Tiene cuatro patas y muchos lo tienen de mascota"
+    },
+    {
+      "word": "Montaña",
+      "hint": "Es muy alta, difícil de escalar y no se mueve"
+    },
+    {
+      "word": "Sol",
+      "hint": "Nos da luz y calor, pero no se debe mirar directo"
+    },
+    {
+      "word": "Libro",
+      "hint": "Contiene páginas llenas de palabras y conocimientos"
+    },
+    {
+      "word": "Escuela",
+      "hint": "Lugar donde aprendemos muchas cosas"
+    },
+    {
+      "word": "Avion",
+      "hint": "Viaja por el cielo y puede llevarte a otro país"
+    },
+    {
+      "word": "Chocolate",
+      "hint": "Dulce marrón que a muchos les encanta"
+    },
+    {
+      "word": "Llave",
+      "hint": "Sirve para abrir puertas"
+    },
+    {
+      "word": "Computadora",
+      "hint": "Dispositivo que usamos para programar o jugar"
+    },
+    {
+      "word": "Reloj",
+      "hint": "Te dice la hora"
+    },
+    {
+      "word": "Playa",
+      "hint": "Lugar con arena y mar"
+    },
+    {
+      "word": "Pelota",
+      "hint": "Se usa en muchos deportes como fútbol o básquet"
+    },
+    {
+      "word": "Zapato",
+      "hint": "Lo usas para caminar sin ensuciarte los pies"
+    },
+    {
+      "word": "Luna",
+      "hint": "Se ve en el cielo de noche"
+    },
+    {
+      "word": "Coche",
+      "hint": "Vehículo con ruedas que te lleva de un lugar a otro"
+    }
+  ]
+}
