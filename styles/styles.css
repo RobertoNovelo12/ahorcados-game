@@ -10,7 +10,7 @@
   --correct-color: #4CAF50;
   --incorrect-color: #9E9E9E;
   --present-color: #FFC107;
-  --modal-bg-dark: #1b263b;
+  --modal-bg-dark: #1b263b98;
 }
 
 :root.dark {
@@ -27,26 +27,34 @@
   --present-color: #FF8F00;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 /* Estructura base */
 body {
   background: var(--background);
   color: var(--text-color);
   font-family: 'Segoe UI', sans-serif;
-  transition: background 0.5s ease, color 0.5s ease;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  margin: 0;
+  overflow-y: hidden;
 }
 
+/* Header */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
+  position: relative;
+  z-index: 10;
 }
 
-/* Estilos de botones (manteniendo tu diseño original) */
+/* Botones del header */
 header button {
   background: var(--button-bg);
   border: 1px solid var(--button-border);
@@ -55,10 +63,11 @@ header button {
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease, border 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 40px;
+  height: 40px;
 }
 
 body.dark header button {
@@ -66,10 +75,13 @@ body.dark header button {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-header button:hover,
-header button:focus {
+header button:hover {
   transform: scale(1.05);
+}
+
+header button:focus {
   outline: none;
+  box-shadow: 0 0 0 2px var(--highlight-border);
 }
 
 .right-buttons {
@@ -77,40 +89,101 @@ header button:focus {
   gap: 1rem;
 }
 
-/* Teclado (estilos originales preservados) */
+/* Contenedor principal del juego */
+.game-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Área de visualización de palabras */
+#word-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+  gap: 0.5rem;
+  justify-content: center;
+  margin: 1rem auto;
+  width: 100%;
+  max-width: 400px;
+}
+
+.letter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1/1;
+  font-size: 2rem;
+  font-weight: bold;
+  border-radius: 4px;
+  border: 2px solid var(--button-border);
+  animation-fill-mode: forwards;
+}
+
+.letter.correct {
+  background-color: var(--correct-color);
+  color: white;
+  border-color: transparent;
+}
+
+.letter.present {
+  background-color: var(--present-color);
+  color: white;
+  border-color: transparent;
+}
+
+.letter.incorrect {
+  background-color: var(--incorrect-color);
+  color: white;
+  border-color: transparent;
+}
+
+/* Teclado */
 #keyboard {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.3rem;
+  width: 100%;
+  margin: 1rem auto 0;
+  justify-content: center;
   align-items: center;
-  max-width: 600px;
-  margin: 0 auto;
 }
 
 .key-row {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.1rem;
   justify-content: center;
-}
-
-.key-row button {
-  width: auto;
+  max-width: 520px;
 }
 
 .key-button {
-  /* Estilos base que ya tenías */
   background: var(--button-bg);
   border: 1px solid var(--button-border);
   border-radius: 8px;
-  padding: 1rem 1.5rem;
   font-size: 1.2rem;
+  font-weight: bold;
   color: var(--text-color);
   cursor: pointer;
-  backdrop-filter: blur(6px);
-  transition: all 0.3s ease;
-  width: 50px;
+  display: flex;
+  transition: transform 0.3s;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  width: 45px; /* Fijo */
   height: 50px;
-  font-weight: bold;
+}
+
+.key-button:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
+}
+
+.key-button:active {
+  transform: scale(0.95);
 }
 
 .key-button.correct {
@@ -129,47 +202,10 @@ header button:focus {
   background-color: var(--incorrect-color);
   color: white;
   border-color: transparent;
-  opacity: 0.7;
 }
 
-.key-button.correct:hover {
-  background-color: var(--correct-color);
-  opacity: 0.9;
-}
-
-.key-button.present:hover {
-  background-color: var(--present-color);
-  opacity: 0.9;
-}
-
-.key-button.incorrect:hover {
-  background-color: var(--incorrect-color);
-  opacity: 0.6;
-}
-
-.key-button:hover {
-  background: rgba(255, 255, 255, 0.4);
-}
-
-:root.dark .key-button:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-#keyboard .key-row:first-child {
-  justify-content: flex-end;
-}
-
-#keyboard .key-row:last-child {
-  justify-content: center;
-}
-
-.key-button:focus {
-  outline: none;
-}
-
-/* Modal (estilos originales preservados) */
+/* Modal */
 .modal {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -179,171 +215,126 @@ header button:focus {
   z-index: 1000;
   overflow: auto;
   backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  color: white;
+}
+
+.modal.active {
+  opacity: 1;
+  visibility: visible;
 }
 
 .modal-content {
-  position: relative;
-  background-color: var(--background);
-  margin: 15% auto;
+  background-color: var(--modal-bg-dark);
+  color: white;
   padding: 25px;
-  width: 80%;
-  max-width: 350px;
   border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  animation: modalopen 0.4s;
+  text-align: center;
+  width: 90%;
+  max-width: 350px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  transform: translateY(-20px);
+  transition: transform 0.3s ease;
+}
+
+.modal.active .modal-content {
+  transform: translateY(0);
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.modal p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .modal button {
-  margin: 10px;
-  padding: 10px 20px;
-  background-color: var(--button-bg);
-  border: 1px solid var(--button-border);
-  color: var(--text-color);
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
-  border-radius: 4px;
-  transition: background 0.2s ease;
+  transition: all 0.2s ease;
+  border: none;
 }
-
-.modal button:hover {
-  background-color: var(--button-bg-hover, #45a049);
-}
-
-.modal button:focus {
-  outline: none;
-}
-
-@keyframes modalopen {
-  from {opacity: 0; transform: translateY(-50px);}
-  to {opacity: 1; transform: translateY(0);}
-}
-
 
 #restartButton {
-  background-color: #4CAF50;
-  border: none;
+  background-color: var(--correct-color);
   color: white;
 }
 
 #restartButton:hover {
-  background-color: #45a049;
+  background-color: #3e8e41;
 }
 
-:root.dark .modal-content {
-  background-color: #1b263b;
-  color: #f5f5f5;
-}
-
-:root.dark .modal button {
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  color: #f5f5f5;
-}
-
-:root.dark .modal button:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-/* Estilos para las letras */
-#word-display {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin: 2rem auto;
-  flex-wrap: wrap;
-}
-
-.letter {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 50px;
-  font-size: 24px;
-  font-weight: bold;
-  border-radius: 4px;
-  background: var(--button-bg);
+#closeModalButton {
+  background-color: var(--button-bg);
+  color: var(--text-color);
   border: 1px solid var(--button-border);
-  margin: 0.25rem;
-  transition: all 0.3s ease;
 }
 
-
-.letter.correct {
-  background-color: var(--correct-color);
-  color: white;
-  animation-name: flip;
-}
-
-.letter.present {
-  background-color: var(--present-color);
-  color: white;
-  animation-name: flip;
-}
-
-.letter.incorrect {
-  background-color: var(--incorrect-color);
-  color: white;
-  animation-name: flip;
-}
-
-.letter.space {
-  background: transparent;
-  border: none;
-}
-
-:root.dark .letter.correct {
-  background: var(--correct-dark);
-  border-color: #34a853;
-  color: #f5f5f5;
-}
-
-:root.dark .letter.incorrect {
-  background: var(--incorrect-dark);
-  border-color: #d9534f;
-  color: #f5f5f5;
-}
-
-/* Efectos y animaciones */
-.word-line.shake {
-  animation: shake 0.4s ease-in-out;
-}
-
-@keyframes shake {
-  0% { transform: translateX(0); }
-  20% { transform: translateX(-5px); }
-  40% { transform: translateX(5px); }
-  60% { transform: translateX(-5px); }
-  80% { transform: translateX(5px); }
-  100% { transform: translateX(0); }
-}
-
-.error-flash {
-  animation: errorColor 0.6s ease-in-out;
-}
-
-@keyframes errorColor {
-  0% { background-color: #ffb3b3; }
-  100% { background-color: transparent; }
+#closeModalButton:hover {
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 /* Pista */
 #hint-container {
-  background-color: rgba(255, 255, 255, 0.6);
-  padding: 1rem 1.5rem;
-  margin: 1rem auto 0;
+  background: var(--button-bg);
+  padding: 1rem;
+  margin: 1rem auto;
+  border-radius: 8px;
+  text-align: center;
   max-width: 600px;
-  border-radius: 12px;
-  font-size: 1.1rem;
-  color: var(--text-color);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--button-border);
   backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  transition: background-color 0.3s ease;
 }
 
-:root.dark #hint-container {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: var(--text-color);
+#hint-text {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+/* Imagen del ahorcado */
+#hangman-image {
+  max-width: 200px;
+  margin: 0 auto;
+  display: block;
+}
+
+/* Contador de intentos */
+#attempts-count {
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+  font-weight: bold;
+}
+
+/* Letras incorrectas */
+#wrong-letters {
+  text-align: center;
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+  color: var(--incorrect-color);
+  min-height: 1.5rem;
 }
 
 /* Iconos */
@@ -357,11 +348,43 @@ header img.themed-icon {
   filter: invert(100%);
 }
 
+/* Responsive */
+@media (max-width: 600px) {
+  .letter {
+    font-size: 1.5rem;
+  }
+  
+  .key-button {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  
+  #hint-container {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .letter {
+    font-size: 1.2rem;
+  }
+  
+  .key-button {
+    width: 30px;
+    height: 40px;
+    font-size: 0.9rem;
+  }
+  
+  .modal-content {
+    padding: 1.5rem;
+  }
+}
+
 /* Responsividad para el teclado */
 @media (max-width: 600px) {
     #keyboard {
       gap: 0.5rem;
-      margin: 0 1rem;
     }
   
     .key-row {
@@ -369,18 +392,16 @@ header img.themed-icon {
     }
   
     .key-button {
-      width: 40px;
-      height: 40px;
-      padding: 0.8rem;
+      width: 35px;
+      height: 35px;
       font-size: 1rem;
     }
   }
   
   @media (min-width: 601px) and (max-width: 1024px) {
     .key-button {
-      width: 45px;
+      width: px;
       height: 45px;
-      padding: 1rem;
       font-size: 1.1rem;
     }
   }    
