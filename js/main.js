@@ -1,11 +1,12 @@
 import { toggleTheme, applyStoredTheme } from './theme-logic.js';
 import { setupButtons } from './buttons-logic.js';
-import { renderKeyboard } from './keyboard-logic.js';
+import { renderKeyboard, initKeyboard } from './keyboard-logic.js';
 import { setTargetWord, useHint, updateWordDisplay, hideModal } from './game-logic.js';
 
 let selectedWord = '';
 let selectedHint = '';
 window.currentWrongCount = 0;
+initKeyboard();
 
 async function fetchRandomWord() {
     try {
