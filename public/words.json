@@ -1,64 +1,104 @@
 {
   "words": [
     {
-      "word": "Perro",
-      "hint": "Tiene cuatro patas y muchos lo tienen de mascota"
+      "word": "Xilófono",
+      "hint": "Instrumento musical de percusión con láminas de madera o metal"
     },
     {
-      "word": "Montaña",
-      "hint": "Es muy alta, difícil de escalar y no se mueve"
+      "word": "Quiosco",
+      "hint": "Pequeña estructura donde se venden periódicos o refrescos"
     },
     {
-      "word": "Sol",
-      "hint": "Nos da luz y calor, pero no se debe mirar directo"
+      "word": "Zodíaco",
+      "hint": "Círculo de constelaciones por donde aparentemente pasa el Sol"
     },
     {
-      "word": "Libro",
-      "hint": "Contiene páginas llenas de palabras y conocimientos"
+      "word": "Búho",
+      "hint": "Ave rapaz nocturna con grandes ojos frontales"
     },
     {
-      "word": "Escuela",
-      "hint": "Lugar donde aprendemos muchas cosas"
+      "word": "Píxel",
+      "hint": "Unidad mínima de una imagen digital"
     },
     {
-      "word": "Avion",
-      "hint": "Viaja por el cielo y puede llevarte a otro país"
+      "word": "Éxodo",
+      "hint": "Salida masiva de personas de un lugar"
     },
     {
-      "word": "Chocolate",
-      "hint": "Dulce marrón que a muchos les encanta"
+      "word": "Axioma",
+      "hint": "Verdad evidente que no requiere demostración"
     },
     {
-      "word": "Llave",
-      "hint": "Sirve para abrir puertas"
+      "word": "Yunque",
+      "hint": "Herramienta de hierro sobre la que se forjan metales"
     },
     {
-      "word": "Computadora",
-      "hint": "Dispositivo que usamos para programar o jugar"
+      "word": "Óvalo",
+      "hint": "Figura geométrica curva, similar a un círculo alargado"
     },
     {
-      "word": "Reloj",
-      "hint": "Te dice la hora"
+      "word": "Úlcera",
+      "hint": "Lesión en la piel o membrana mucosa que tarda en sanar"
     },
     {
-      "word": "Playa",
-      "hint": "Lugar con arena y mar"
+      "word": "Iglú",
+      "hint": "Vivienda esquimal hecha de bloques de hielo"
     },
     {
-      "word": "Pelota",
-      "hint": "Se usa en muchos deportes como fútbol o básquet"
+      "word": "Oasis",
+      "hint": "Zona fértil en medio del desierto"
     },
     {
-      "word": "Zapato",
-      "hint": "Lo usas para caminar sin ensuciarte los pies"
+      "word": "Éter",
+      "hint": "Medio que en física clásica se creía llenaba el espacio"
     },
     {
-      "word": "Luna",
-      "hint": "Se ve en el cielo de noche"
+      "word": "Ukelele",
+      "hint": "Pequeño instrumento de cuerda originario de Hawái"
     },
     {
-      "word": "Coche",
-      "hint": "Vehículo con ruedas que te lleva de un lugar a otro"
+      "word": "Ámbar",
+      "hint": "Resina fósil de color amarillento usada en joyería"
+    },
+    {
+      "word": "Índigo",
+      "hint": "Color entre el azul y el violeta en el espectro visible"
+    },
+    {
+      "word": "Ómicron",
+      "hint": "Letra griega que recientemente dio nombre a una variante viral"
+    },
+    {
+      "word": "Época",
+      "hint": "Período de tiempo caracterizado por circunstancias particulares"
+    },
+    {
+      "word": "Aéreo",
+      "hint": "Relativo al aire o la aviación"
+    },
+    {
+      "word": "Único",
+      "hint": "Que no tiene igual o semejante"
+    },
+    {
+      "word": "Púa",
+      "hint": "Punta aguda o pieza pequeña para tocar instrumentos de cuerda"
+    },
+    {
+      "word": "Mítico",
+      "hint": "Relativo a los mitos o legendario"
+    },
+    {
+      "word": "Ácido",
+      "hint": "Compuesto químico que dona protones o acepta electrones"
+    },
+    {
+      "word": "Épico",
+      "hint": "Género literario que narra hazañas heroicas"
+    },
+    {
+      "word": "Útil",
+      "hint": "Que sirve para un fin determinado"
     }
   ]
 }

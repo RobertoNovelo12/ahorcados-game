@@ -44,20 +44,32 @@ function updateAttemptsDisplay() {
 
 
 export function handleKeyPress(letter) {
-    if (gameOver) return;
     letter = letter.toUpperCase();
+    const accentedLetters = {
+        'A': 'Á',
+        'E': 'É',
+        'I': 'Í',
+        'O': 'Ó',
+        'U': 'Ú'
+    };
+    const letterWithAccent = accentedLetters[letter] || letter;
+
+    if (gameOver) return;
+
     if (guessedLetters.includes(letter) || wrongLetters.includes(letter)) {
         triggerShakeEffect();
         return;
     }
-    if (targetWord.includes(letter)) {
-        guessedLetters.push(letter);
+    const targetLetter = targetWord.find(char => char === letter || char === letterWithAccent);
+
+    if (targetLetter) {
+        guessedLetters.push(targetLetter);
         targetWord.forEach((char, index) => {
-            if (char === letter) {
-                currentWord[index] = letter;
+            if (char === targetLetter) {
+                currentWord[index] = targetLetter;
             }
         });
-        updateKeyboardStyles(letter, true, false);
+        updateKeyboardStyles(targetLetter, true, false);
         checkWin();
     } else {
         wrongLetters.push(letter);
@@ -70,6 +82,7 @@ export function handleKeyPress(letter) {
     }
     updateWordDisplay();
 }
+
 
 
 export function updateKeyboardStyles(letter = null, isCorrect = false, isPresent = false) {
@@ -134,8 +147,6 @@ export function updateWordDisplay() {
         hangmanImage.src = `images/hangman-${6 - remainingAttempts}.png`;
     }
 }
-
-
 
 export function showModal(isWinner) {
     const modal = document.getElementById('restartModal');
