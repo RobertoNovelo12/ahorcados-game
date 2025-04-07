@@ -10,7 +10,7 @@ initKeyboard();
 
 async function fetchRandomWord() {
     try {
-        const response = await fetch('../public/words.json');
+        const response = await fetch('/public/words.json');
         if (!response.ok) throw new Error('Error al cargar el diccionario');        
         const data = await response.json();
         const words = data.words;
