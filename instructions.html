@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="shortcut icon" href="/public/stickman.svg" type="image/x-svg" class="favicon">
+  <link rel="shortcut icon" href="/source/stickman.svg" type="image/x-svg" class="favicon">
   <title>Instrucciones - Ahorcados game!</title>
   <script>
     (function() {
@@ -335,11 +335,11 @@
 <body>
   <header>
     <button id="backButton" title="Volver al juego">
-      <img src="public/back-icon.svg" alt="Volver" class="themed-icon" />
+      <img src="source/back-icon.svg" alt="Volver" class="themed-icon" />
     </button>
     <div class="right-buttons">
       <button id="themeToggle" title="Cambiar tema">
-        <img id="themeIcon" src="public/moon-icon.svg" alt="Tema" class="themed-icon" />
+        <img id="themeIcon" src="source/moon-icon.svg" alt="Tema" class="themed-icon" />
       </button>
     </div>
   </header>
@@ -438,7 +438,7 @@
   </div>
     <div class="github-footer">
         <a href="https://github.com/RobertoNovelo12" target="_blank" rel="noopener noreferrer">
-            <img src="public/github-icon.svg" alt="GitHub" class="github-icon">
+            <img src="source/github-icon.svg" alt="GitHub" class="github-icon">
             <span>RobertoNovelo12</span>
         </a>
     </div> 
@@ -454,7 +454,7 @@
       
       const themeIcon = document.getElementById('themeIcon');
       if (themeIcon) {
-        themeIcon.src = isDark ? 'public/sun-icon.svg' : 'public/moon-icon.svg';
+        themeIcon.src = isDark ? 'source/sun-icon.svg' : 'source/moon-icon.svg';
       }
     });
 
@@ -462,7 +462,7 @@
       const isDark = document.documentElement.classList.contains('dark');
       const themeIcon = document.getElementById('themeIcon');
       if (themeIcon) {
-        themeIcon.src = isDark ? 'public/sun-icon.svg' : 'public/moon-icon.svg';
+        themeIcon.src = isDark ? 'source/sun-icon.svg' : 'source/moon-icon.svg';
       }
       document.getElementById('backButton').addEventListener('click', function() {
         window.location.href = 'index.html';

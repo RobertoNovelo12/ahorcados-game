@@ -6,7 +6,7 @@ export function toggleTheme() {
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
     const themeIcon = document.getElementById('themeIcon');
     if (themeIcon) {
-        themeIcon.src = isDark ? 'public/sun-icon.svg' : 'public/moon-icon.svg';
+        themeIcon.src = isDark ? 'source/sun-icon.svg' : 'source/moon-icon.svg';
     }
     redrawStickman(window.currentWrongCount || 0);
 }
@@ -17,10 +17,10 @@ export function applyStoredTheme() {
     const themeIcon = document.getElementById('themeIcon');
     if (storedTheme === 'dark') {
         root.classList.add('dark');
-        if (themeIcon) themeIcon.src = 'public/sun-icon.svg';
+        if (themeIcon) themeIcon.src = 'source/sun-icon.svg';
     } else {
         root.classList.remove('dark');
-        if (themeIcon) themeIcon.src = 'public/moon-icon.svg';
+        if (themeIcon) themeIcon.src = 'source/moon-icon.svg';
     }
     initStickman();
 }
